@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nick Quijano Consulting — AI Consulting &amp; Web Design</title>
+<meta name="description" content="Practical AI consulting and modern web design that help businesses work smarter, grow faster, and create better experiences.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563EB'/%3E%3Cstop offset='1' stop-color='%237C3AED'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='40' height='40' rx='10' fill='%230B1220'/%3E%3Cline x1='12' y1='28' x2='12' y2='14' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='12' y1='14' x2='28' y2='28' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='28' y1='28' x2='28' y2='14' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='14' r='2.6' fill='%23F8FAFC'/%3E%3Ccircle cx='12' cy='28' r='2.6' fill='%232563EB'/%3E%3Ccircle cx='28' cy='14' r='2.6' fill='%237C3AED'/%3E%3Ccircle cx='28' cy='28' r='2.6' fill='%23F8FAFC'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: '#0B1220',
+          ink: '#0E1626',
+          'electric-blue': '#2563EB',
+          'digital-violet': '#7C3AED',
+          cloud: '#F8FAFC',
+          'slate-brand': '#64748B',
+          charcoal: '#1E293B',
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+        boxShadow: {
+          soft: '0 1px 2px rgba(11,18,32,0.04), 0 12px 28px -12px rgba(37,99,235,0.18)',
+          lift: '0 2px 4px rgba(11,18,32,0.06), 0 20px 40px -16px rgba(124,58,237,0.28)',
+          navy: '0 20px 60px -20px rgba(11,18,32,0.45)',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root { color-scheme: light; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background: #F8FAFC;
+    color: #1E293B;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: #2563EB; color: #F8FAFC; }
+
+  .tracking-tightish { letter-spacing: -0.03em; }
+
+  /* Grain texture overlay for dark sections */
+  .grain { position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: overlay; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Buttons — hover lift via transform, shadow fades in via opacity only */
+  .btn { position: relative; isolation: isolate; }
+  .btn::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    box-shadow: 0 14px 30px -10px rgba(37,99,235,0.55);
+    opacity: 0; transition: opacity .35s cubic-bezier(.34,1.56,.64,1);
+    z-index: -1;
+  }
+  .btn:hover::after, .btn:focus-visible::after { opacity: 1; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0px) scale(0.98); }
+  .btn { transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+
+  .btn-ghost::after { box-shadow: 0 14px 30px -12px rgba(11,18,32,0.35); }
+
+  .btn:focus-visible, a:focus-visible, button:focus-visible {
+    outline: 2px solid #2563EB; outline-offset: 3px; border-radius: 8px;
+  }
+
+  /* Card hover */
+  .card-hover { transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease; }
+  .card-hover:hover { transform: translateY(-4px); }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .btn, .card-hover { transition: none; }
+  }
+
+  /* FAQ chevron */
+  .faq-chevron { transition: transform .35s cubic-bezier(.34,1.56,.64,1); }
+  .faq-item[data-open="true"] .faq-chevron { transform: rotate(180deg); }
+  .faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s cubic-bezier(.16,1,.3,1); }
+  .faq-item[data-open="true"] .faq-panel { grid-template-rows: 1fr; }
+  .faq-panel > div { overflow: hidden; }
+
+  /* Mobile menu */
+  #mobile-menu { transition: opacity .3s ease, transform .3s cubic-bezier(.16,1,.3,1); }
+  #mobile-menu[data-open="false"] { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+  #mobile-menu[data-open="true"] { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .node-glow { filter: drop-shadow(0 0 12px rgba(124,58,237,0.35)); }
+
+  /* Cursor-reactive background glow */
+  .glow-field { position: relative; }
+  .glow-blob {
+    position: absolute;
+    width: 620px; height: 620px;
+    margin-left: -310px; margin-top: -310px;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.5;
+    pointer-events: none;
+    transform: translate3d(0,0,0);
+    will-change: transform;
+  }
+  .glow-blob-blue { background: radial-gradient(circle, rgba(37,99,235,0.55), transparent 70%); }
+  .glow-blob-violet { background: radial-gradient(circle, rgba(124,58,237,0.5), transparent 70%); }
+  @media (max-width: 640px) {
+    .glow-blob { width: 380px; height: 380px; margin-left: -190px; margin-top: -190px; filter: blur(60px); }
+  }
+
+</style>
+</head>
+<body id="top" class="bg-cloud text-charcoal antialiased">
+
+<!-- ============ HEADER / NAV ============ -->
+<header class="fixed top-0 inset-x-0 z-50 bg-cloud/80 backdrop-blur-lg border-b border-slate-brand/10">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="flex items-center justify-between h-16 sm:h-[72px]">
+      <a href="#top" class="flex items-center gap-2.5 group" aria-label="Nick Quijano Consulting home">
+        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" class="shrink-0">
+          <defs>
+            <linearGradient id="gradHeader" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2563EB"/>
+              <stop offset="1" stop-color="#7C3AED"/>
+            </linearGradient>
+          </defs>
+          <rect width="40" height="40" rx="10" fill="#0B1220"/>
+          <line x1="12" y1="28" x2="12" y2="14" stroke="url(#gradHeader)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="14" x2="28" y2="28" stroke="url(#gradHeader)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="28" y1="28" x2="28" y2="14" stroke="url(#gradHeader)" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="14" r="2.6" fill="#F8FAFC"/>
+          <circle cx="12" cy="28" r="2.6" fill="#2563EB"/>
+          <circle cx="28" cy="14" r="2.6" fill="#7C3AED"/>
+          <circle cx="28" cy="28" r="2.6" fill="#F8FAFC"/>
+        </svg>
+        <span class="flex flex-col leading-none">
+          <span class="text-[15px] sm:text-base font-extrabold tracking-tightish text-navy">Nick Quijano</span>
+          <span class="text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] text-electric-blue uppercase">Consulting</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9" aria-label="Primary">
+        <a href="#services" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">Services</a>
+        <a href="#process" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">Process</a>
+        <a href="#case-studies" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">Case Studies</a>
+        <a href="#faq" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">FAQ</a>
+      </nav>
+
+      <div class="hidden lg:block">
+        <a href="#contact" class="btn inline-flex items-center gap-2 bg-electric-blue text-white text-[15px] font-semibold h-11 px-5 rounded-[10px] hover:brightness-110">
+          Book a Consultation
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <button id="menu-btn" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-navy hover:bg-navy/5 transition-colors" aria-label="Toggle menu" aria-expanded="false">
+        <svg id="menu-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="menu-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" data-open="false" class="lg:hidden absolute top-full inset-x-0 bg-cloud border-b border-slate-brand/10 shadow-lift">
+    <div class="max-w-[1280px] mx-auto px-6 py-6 flex flex-col gap-1">
+      <a href="#services" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Services</a>
+      <a href="#process" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Process</a>
+      <a href="#case-studies" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Case Studies</a>
+      <a href="#faq" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">FAQ</a>
+      <a href="#contact" class="mobile-link btn mt-4 inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-base font-semibold h-12 px-5 rounded-[10px]">Book a Consultation</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 1. HERO ============ -->
+<section class="relative overflow-hidden bg-navy min-h-screen flex flex-col glow-field">
+  <div class="glow-blob glow-blob-blue" style="top:22%; left:18%;"></div>
+  <div class="glow-blob glow-blob-violet" style="top:32%; left:82%;"></div>
+
+  <svg class="absolute inset-0 w-full h-full opacity-40" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1280 760" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="heroNetGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#2563EB" stop-opacity="0.55"/>
+        <stop offset="1" stop-color="#7C3AED" stop-opacity="0.55"/>
+      </linearGradient>
+    </defs>
+    <g stroke="url(#heroNetGrad)" stroke-width="1">
+      <line x1="90" y1="130" x2="250" y2="230"/>
+      <line x1="250" y1="230" x2="190" y2="400"/>
+      <line x1="250" y1="230" x2="430" y2="170"/>
+      <line x1="430" y1="170" x2="570" y2="290"/>
+      <line x1="1040" y1="100" x2="1160" y2="210"/>
+      <line x1="1160" y1="210" x2="1080" y2="350"/>
+      <line x1="1160" y1="210" x2="1240" y2="130"/>
+      <line x1="900" y1="500" x2="1040" y2="580"/>
+      <line x1="1040" y1="580" x2="1160" y2="520"/>
+      <line x1="70" y1="580" x2="190" y2="640"/>
+      <line x1="190" y1="640" x2="330" y2="600"/>
+      <line x1="570" y1="290" x2="700" y2="200"/>
+    </g>
+    <g fill="#F8FAFC" fill-opacity="0.55">
+      <circle cx="90" cy="130" r="2.5"/><circle cx="250" cy="230" r="3"/><circle cx="190" cy="400" r="2"/>
+      <circle cx="430" cy="170" r="2.5"/><circle cx="570" cy="290" r="2"/><circle cx="700" cy="200" r="2"/>
+      <circle cx="1040" cy="100" r="2.5"/><circle cx="1160" cy="210" r="3"/><circle cx="1080" cy="350" r="2"/>
+      <circle cx="1240" cy="130" r="2"/><circle cx="900" cy="500" r="2"/><circle cx="1040" cy="580" r="2.5"/>
+      <circle cx="1160" cy="520" r="2"/><circle cx="70" cy="580" r="2"/><circle cx="190" cy="640" r="2.5"/>
+      <circle cx="330" cy="600" r="2"/>
+    </g>
+  </svg>
+
+  <div class="grain"></div>
+
+  <div class="relative flex-1 flex items-center w-full pt-24 sm:pt-28">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16 w-full">
+    <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-12 items-center">
+      <div>
+        <span class="reveal inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 text-[13px] font-semibold tracking-wide text-electric-blue/90 uppercase">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M21 12h-3M6 12H3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6"/></svg>
+          AI Consulting &amp; Web Design
+        </span>
+
+        <h1 class="reveal mt-6 text-[2.5rem] leading-[1.08] sm:text-5xl sm:leading-[1.08] lg:text-6xl lg:leading-[1.05] font-extrabold tracking-tightish text-white" style="transition-delay:.05s">
+          Practical AI and Websites<br>
+          <span class="bg-gradient-to-r from-electric-blue to-digital-violet bg-clip-text text-transparent">Built for Better Business</span>
+        </h1>
+
+        <p class="reveal mt-6 max-w-xl text-lg leading-[1.7] text-slate-300" style="transition-delay:.1s">
+          We help businesses use AI and modern web design to work more efficiently, improve customer experiences, and build a stronger digital presence.
+        </p>
+
+        <div class="reveal mt-8 flex flex-col sm:flex-row gap-4" style="transition-delay:.15s">
+          <a href="#contact" class="btn inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-[13px] font-semibold uppercase tracking-[0.08em] h-12 px-7 rounded-[10px]">
+            Book a Consultation
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#services" class="btn btn-ghost inline-flex items-center justify-center gap-2 bg-transparent border border-white/25 text-white text-[13px] font-semibold uppercase tracking-[0.08em] h-12 px-7 rounded-[10px] hover:bg-white/5">
+            Explore Our Services
+          </a>
+        </div>
+
+        <p class="reveal mt-8 text-sm leading-relaxed text-slate-400 max-w-md" style="transition-delay:.2s">
+          Whether you're just starting to explore AI or already scaling systems you've built, we'll meet you where you are.<br>
+          No jargon, no pressure.
+        </p>
+      </div>
+
+      <div class="reveal relative mx-auto max-w-[260px] w-full" style="transition-delay:.15s">
+        <div class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-electric-blue/30 to-digital-violet/30 blur-2xl"></div>
+        <div class="relative rounded-[1.75rem] p-1.5 bg-gradient-to-br from-electric-blue to-digital-violet shadow-navy">
+          <div class="rounded-[1.4rem] overflow-hidden bg-navy">
+            <img src="brand_assests/Head%20shot.png" alt="Nick Quijano, Founder of Nick Quijano Consulting" class="w-full aspect-[4/5] object-cover">
+          </div>
+        </div>
+        <div class="reveal absolute -bottom-6 -left-6 sm:-left-10 bg-white/95 backdrop-blur rounded-2xl shadow-lift px-5 py-4 flex items-center gap-3 max-w-[240px]" style="transition-delay:.3s">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric-blue to-digital-violet flex items-center justify-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="leading-tight">
+            <p class="text-sm font-bold text-navy">Nick Quijano</p>
+            <p class="text-xs text-slate-brand">Founder &amp; AI/Web Consultant</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="relative border-t border-white/10">
+    <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16 py-5">
+      <div class="flex flex-wrap items-center justify-center sm:justify-between gap-x-8 gap-y-3 text-[13px] tracking-wide text-slate-400">
+        <span class="inline-flex items-center gap-2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          nickquijanoconsulting.com
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          +1 (555) 123-4567
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Remote — Serving Clients Nationwide
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. TRUST / DIFFERENTIATORS ============ -->
+<section class="bg-cloud border-b border-slate-brand/10">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16 py-12 sm:py-14">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+      <div class="reveal flex items-start gap-3">
+        <svg class="shrink-0 mt-0.5" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg>
+        <p class="text-sm sm:text-[15px] font-medium text-charcoal leading-snug">AI and web design under one brand</p>
+      </div>
+      <div class="reveal flex items-start gap-3" style="transition-delay:.05s">
+        <svg class="shrink-0 mt-0.5" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l6 6L21 6"/></svg>
+        <p class="text-sm sm:text-[15px] font-medium text-charcoal leading-snug">Business-first recommendations</p>
+      </div>
+      <div class="reveal flex items-start gap-3" style="transition-delay:.1s">
+        <svg class="shrink-0 mt-0.5" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <p class="text-sm sm:text-[15px] font-medium text-charcoal leading-snug">Clear communication</p>
+      </div>
+      <div class="reveal flex items-start gap-3" style="transition-delay:.15s">
+        <svg class="shrink-0 mt-0.5" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M21 7v6M21 7h-6"/></svg>
+        <p class="text-sm sm:text-[15px] font-medium text-charcoal leading-snug">Scalable solutions for future growth</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. SERVICES ============ -->
+<section id="services" class="bg-cloud py-16">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal max-w-2xl">
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Services</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-navy">Practical technology and design services for growing businesses</h2>
+      <p class="mt-4 text-lg leading-[1.7] text-slate-brand">Every engagement starts with your business goals — the technology is chosen to fit, not the other way around. Some clients are exploring AI for the first time; others are refining systems they've already built. Either way, we start from where you actually are.</p>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-3 gap-6 lg:gap-8">
+      <div class="reveal card-hover rounded-2xl bg-white border border-slate-brand/10 shadow-soft p-8">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-electric-blue to-digital-violet flex items-center justify-center mb-6">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-navy tracking-tightish">AI Consulting &amp; Strategy</h3>
+        <p class="mt-3 text-[15px] leading-[1.7] text-slate-brand">Identify where AI can save time, cut costs, and improve decisions — then implement solutions that fit how your business actually works.</p>
+        <ul class="mt-5 space-y-2.5">
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Process &amp; workflow audits</li>
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>AI tool selection &amp; integration</li>
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Custom automation builds</li>
+        </ul>
+      </div>
+
+      <div class="reveal card-hover rounded-2xl bg-white border border-slate-brand/10 shadow-soft p-8" style="transition-delay:.08s">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-electric-blue to-digital-violet flex items-center justify-center mb-6">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-navy tracking-tightish">Website Design &amp; Development</h3>
+        <p class="mt-3 text-[15px] leading-[1.7] text-slate-brand">Modern, responsive websites built to represent your brand and turn visitors into customers.</p>
+        <ul class="mt-5 space-y-2.5">
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Custom design &amp; build</li>
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Mobile-first &amp; fast-loading</li>
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Conversion-focused layouts</li>
+        </ul>
+      </div>
+
+      <div class="reveal card-hover rounded-2xl bg-white border border-slate-brand/10 shadow-soft p-8" style="transition-delay:.16s">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-electric-blue to-digital-violet flex items-center justify-center mb-6">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M21 7v6M21 7h-6"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-navy tracking-tightish">Digital Strategy &amp; Support</h3>
+        <p class="mt-3 text-[15px] leading-[1.7] text-slate-brand">Ongoing guidance to keep your digital presence aligned with your business goals as you grow.</p>
+        <ul class="mt-5 space-y-2.5">
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Strategic roadmapping</li>
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Performance tracking</li>
+          <li class="flex items-start gap-2.5 text-sm text-charcoal"><svg class="shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Ongoing optimization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. PROBLEMS WE SOLVE ============ -->
+<section class="bg-white py-16 border-y border-slate-brand/10">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal max-w-2xl">
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Where We Often Start</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-navy">A few common starting points</h2>
+      <p class="mt-4 text-lg leading-[1.7] text-slate-brand">No two businesses arrive at the same place — these are a few of the situations clients bring to that first conversation.</p>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 gap-6 lg:gap-8">
+      <div class="reveal flex gap-5 rounded-2xl bg-cloud border border-slate-brand/10 p-7">
+        <svg class="shrink-0" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></svg>
+        <p class="text-[15px] sm:text-base leading-[1.7] text-charcoal font-medium">A website that's due for a refresh and isn't generating leads the way it could.</p>
+      </div>
+      <div class="reveal flex gap-5 rounded-2xl bg-cloud border border-slate-brand/10 p-7" style="transition-delay:.06s">
+        <svg class="shrink-0" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <p class="text-[15px] sm:text-base leading-[1.7] text-charcoal font-medium">Repetitive manual tasks that take up more time than they should.</p>
+      </div>
+      <div class="reveal flex gap-5 rounded-2xl bg-cloud border border-slate-brand/10 p-7" style="transition-delay:.12s">
+        <svg class="shrink-0" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
+        <p class="text-[15px] sm:text-base leading-[1.7] text-charcoal font-medium">Curiosity about AI, without a clear sense of where to begin.</p>
+      </div>
+      <div class="reveal flex gap-5 rounded-2xl bg-cloud border border-slate-brand/10 p-7" style="transition-delay:.18s">
+        <svg class="shrink-0" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.5 8.5l7 7"/><path d="M6 9v6M18 9v6" stroke-dasharray="2 2"/></svg>
+        <p class="text-[15px] sm:text-base leading-[1.7] text-charcoal font-medium">Tools and systems that don't quite talk to each other yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. BUSINESS OUTCOMES ============ -->
+<section class="relative overflow-hidden bg-navy py-16 glow-field">
+  <div class="glow-blob glow-blob-blue" style="top:75%; left:50%; opacity:0.35;"></div>
+  <div class="grain"></div>
+  <div class="relative max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal max-w-2xl">
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Outcomes</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-white">What working together looks like</h2>
+    </div>
+
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur p-7">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <h3 class="mt-5 font-bold text-white tracking-tightish">Save hours every week</h3>
+        <p class="mt-2 text-sm leading-[1.7] text-slate-400">Automate repetitive work so your team can focus on higher-value tasks.</p>
+      </div>
+      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur p-7" style="transition-delay:.06s">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M21 7v6M21 7h-6"/></svg>
+        <h3 class="mt-5 font-bold text-white tracking-tightish">Convert more visitors</h3>
+        <p class="mt-2 text-sm leading-[1.7] text-slate-400">A modern, clear website turns more traffic into leads and customers.</p>
+      </div>
+      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur p-7" style="transition-delay:.12s">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10M12 2v10l7-7"/></svg>
+        <h3 class="mt-5 font-bold text-white tracking-tightish">Make faster, better decisions</h3>
+        <p class="mt-2 text-sm leading-[1.7] text-slate-400">Clear reporting and workflows give you visibility into what's working.</p>
+      </div>
+      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur p-7" style="transition-delay:.18s">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V10l6-4 6 4v11M9 21v-6h6v6"/></svg>
+        <h3 class="mt-5 font-bold text-white tracking-tightish">Scale without the overhead</h3>
+        <p class="mt-2 text-sm leading-[1.7] text-slate-400">Systems and sites built to grow with you, not against you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. OUR PROCESS ============ -->
+<section id="process" class="bg-cloud py-16">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal max-w-2xl mx-auto text-center">
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Process</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-navy">A clear, straightforward path from idea to impact</h2>
+    </div>
+
+    <div class="mt-14 relative">
+      <div class="hidden lg:block absolute top-6 left-[10%] right-[10%] h-px bg-gradient-to-r from-electric-blue via-digital-violet to-electric-blue opacity-30"></div>
+      <div class="grid lg:grid-cols-5 gap-10 lg:gap-6">
+        <div class="reveal text-center lg:text-left">
+          <div class="mx-auto lg:mx-0 w-12 h-12 rounded-full bg-navy text-white flex items-center justify-center font-bold relative z-10">01</div>
+          <h3 class="mt-5 font-bold text-navy tracking-tightish">Discover</h3>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand">Understand your business, goals, and where the biggest opportunities are.</p>
+        </div>
+        <div class="reveal text-center lg:text-left" style="transition-delay:.06s">
+          <div class="mx-auto lg:mx-0 w-12 h-12 rounded-full bg-navy text-white flex items-center justify-center font-bold relative z-10">02</div>
+          <h3 class="mt-5 font-bold text-navy tracking-tightish">Strategize</h3>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand">Map a practical plan connecting the right tools and design to your outcomes.</p>
+        </div>
+        <div class="reveal text-center lg:text-left" style="transition-delay:.12s">
+          <div class="mx-auto lg:mx-0 w-12 h-12 rounded-full bg-navy text-white flex items-center justify-center font-bold relative z-10">03</div>
+          <h3 class="mt-5 font-bold text-navy tracking-tightish">Design &amp; Build</h3>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand">Build the website, automation, or system with regular check-ins along the way.</p>
+        </div>
+        <div class="reveal text-center lg:text-left" style="transition-delay:.18s">
+          <div class="mx-auto lg:mx-0 w-12 h-12 rounded-full bg-navy text-white flex items-center justify-center font-bold relative z-10">04</div>
+          <h3 class="mt-5 font-bold text-navy tracking-tightish">Launch</h3>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand">Go live with a solution that's tested, documented, and ready for your team.</p>
+        </div>
+        <div class="reveal text-center lg:text-left" style="transition-delay:.24s">
+          <div class="mx-auto lg:mx-0 w-12 h-12 rounded-full bg-gradient-to-br from-electric-blue to-digital-violet text-white flex items-center justify-center font-bold relative z-10">05</div>
+          <h3 class="mt-5 font-bold text-navy tracking-tightish">Support &amp; Optimize</h3>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand">Track performance and refine the solution as your business evolves.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CASE STUDIES ============ -->
+<section id="case-studies" class="bg-white py-16 border-y border-slate-brand/10">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal max-w-2xl">
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Case Studies</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-navy">Real challenges, practical solutions</h2>
+      <p class="mt-4 text-lg leading-[1.7] text-slate-brand">Illustrative examples of the kind of work we do — case details are shared with client permission.</p>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-3 gap-6 lg:gap-8">
+      <div class="reveal card-hover rounded-2xl overflow-hidden bg-cloud border border-slate-brand/10 shadow-soft">
+        <img src="https://placehold.co/600x400/0B1220/F8FAFC?text=E-Commerce+Retailer" alt="E-commerce retailer case study" class="w-full aspect-[3/2] object-cover">
+        <div class="p-7">
+          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Example Project</span>
+          <h3 class="mt-2 text-lg font-bold text-navy tracking-tightish">E-Commerce Retailer</h3>
+          <p class="mt-3 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Challenge:</span> Slow, dated site with a high cart-abandonment rate.</p>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Result:</span> Rebuilt storefront with a streamlined checkout and faster load times.</p>
+        </div>
+      </div>
+      <div class="reveal card-hover rounded-2xl overflow-hidden bg-cloud border border-slate-brand/10 shadow-soft" style="transition-delay:.08s">
+        <img src="https://placehold.co/600x400/1E293B/F8FAFC?text=Professional+Services+Firm" alt="Professional services firm case study" class="w-full aspect-[3/2] object-cover">
+        <div class="p-7">
+          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Example Project</span>
+          <h3 class="mt-2 text-lg font-bold text-navy tracking-tightish">Professional Services Firm</h3>
+          <p class="mt-3 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Challenge:</span> Staff spending hours weekly on manual client intake.</p>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Result:</span> Automated intake workflow, cutting admin time significantly.</p>
+        </div>
+      </div>
+      <div class="reveal card-hover rounded-2xl overflow-hidden bg-cloud border border-slate-brand/10 shadow-soft" style="transition-delay:.16s">
+        <img src="https://placehold.co/600x400/2563EB/F8FAFC?text=Local+Healthcare+Practice" alt="Local healthcare practice case study" class="w-full aspect-[3/2] object-cover">
+        <div class="p-7">
+          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Example Project</span>
+          <h3 class="mt-2 text-lg font-bold text-navy tracking-tightish">Local Healthcare Practice</h3>
+          <p class="mt-3 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Challenge:</span> No clear digital strategy or way to track patient inquiries.</p>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Result:</span> New site plus a simple inquiry dashboard for the front desk.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. TESTIMONIALS ============ -->
+<section class="relative overflow-hidden bg-navy py-16 glow-field">
+  <div class="glow-blob glow-blob-violet" style="top:20%; left:22%;"></div>
+  <div class="grain"></div>
+  <div class="relative max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal max-w-2xl mx-auto text-center">
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Testimonials</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-white">What clients say</h2>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-3 gap-6 lg:gap-8">
+      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-8">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED" opacity="0.6"><path d="M7 10c-1.7 0-3 1.3-3 3v5h5v-5H6.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1zm10 0c-1.7 0-3 1.3-3 3v5h5v-5h-1.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1z"/></svg>
+        <p class="mt-4 text-[15px] leading-[1.7] text-slate-300">"Working with Nick made AI feel practical instead of overwhelming. We finally had a plan we could actually execute."</p>
+        <p class="mt-5 text-sm font-semibold text-white">Client Name</p>
+        <p class="text-xs text-slate-400">Title, Industry</p>
+      </div>
+      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-8" style="transition-delay:.08s">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED" opacity="0.6"><path d="M7 10c-1.7 0-3 1.3-3 3v5h5v-5H6.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1zm10 0c-1.7 0-3 1.3-3 3v5h5v-5h-1.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1z"/></svg>
+        <p class="mt-4 text-[15px] leading-[1.7] text-slate-300">"Our new site is faster, cleaner, and actually reflects the quality of our work. The process was clear from day one."</p>
+        <p class="mt-5 text-sm font-semibold text-white">Client Name</p>
+        <p class="text-xs text-slate-400">Title, Industry</p>
+      </div>
+      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-8" style="transition-delay:.16s">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED" opacity="0.6"><path d="M7 10c-1.7 0-3 1.3-3 3v5h5v-5H6.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1zm10 0c-1.7 0-3 1.3-3 3v5h5v-5h-1.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1z"/></svg>
+        <p class="mt-4 text-[15px] leading-[1.7] text-slate-300">"We stopped losing time to manual busywork. The automation Nick built paid for itself within a couple of months."</p>
+        <p class="mt-5 text-sm font-semibold text-white">Client Name</p>
+        <p class="text-xs text-slate-400">Title, Industry</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. FAQ ============ -->
+<section id="faq" class="bg-cloud py-16">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal max-w-2xl mx-auto text-center">
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">FAQ</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-navy">Frequently asked questions</h2>
+    </div>
+
+    <div class="mt-12 max-w-3xl mx-auto space-y-3">
+      <div class="faq-item reveal rounded-2xl bg-white border border-slate-brand/10 shadow-soft" data-open="false">
+        <button class="faq-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-semibold text-navy">What services do you offer?</span>
+          <svg class="faq-chevron shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-panel"><div><p class="px-6 pb-5 text-[15px] leading-[1.7] text-slate-brand">AI consulting and strategy, custom website design and development, and ongoing digital strategy support — all under one roof, so your systems and your site work together.</p></div></div>
+      </div>
+
+      <div class="faq-item reveal rounded-2xl bg-white border border-slate-brand/10 shadow-soft" data-open="false" style="transition-delay:.05s">
+        <button class="faq-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-semibold text-navy">Do you work with small businesses?</span>
+          <svg class="faq-chevron shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-panel"><div><p class="px-6 pb-5 text-[15px] leading-[1.7] text-slate-brand">Yes. Solutions are scoped to fit your size and budget — there's no one-size-fits-all package, just a plan built around what makes sense for your business right now.</p></div></div>
+      </div>
+
+      <div class="faq-item reveal rounded-2xl bg-white border border-slate-brand/10 shadow-soft" data-open="false" style="transition-delay:.1s">
+        <button class="faq-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-semibold text-navy">How long does a typical project take?</span>
+          <svg class="faq-chevron shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-panel"><div><p class="px-6 pb-5 text-[15px] leading-[1.7] text-slate-brand">It depends on scope. A focused website or automation build typically runs a few weeks; larger strategy engagements run longer. You'll get a clear timeline after the discovery call.</p></div></div>
+      </div>
+
+      <div class="faq-item reveal rounded-2xl bg-white border border-slate-brand/10 shadow-soft" data-open="false" style="transition-delay:.15s">
+        <button class="faq-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-semibold text-navy">Do I need to know anything about AI to work with you?</span>
+          <svg class="faq-chevron shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-panel"><div><p class="px-6 pb-5 text-[15px] leading-[1.7] text-slate-brand">No. Explanations stay grounded in your business outcomes rather than technical jargon — you'll understand exactly what's being built and why.</p></div></div>
+      </div>
+
+      <div class="faq-item reveal rounded-2xl bg-white border border-slate-brand/10 shadow-soft" data-open="false" style="transition-delay:.2s">
+        <button class="faq-btn w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-semibold text-navy">What happens after I reach out?</span>
+          <svg class="faq-chevron shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-panel"><div><p class="px-6 pb-5 text-[15px] leading-[1.7] text-slate-brand">A short discovery call to understand your goals, followed by a straightforward proposal outlining scope, timeline, and pricing — no pressure, no obligation.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. FINAL CTA ============ -->
+<section id="contact" class="bg-cloud py-4 sm:py-8">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
+    <div class="reveal relative overflow-hidden rounded-[24px] bg-navy px-8 py-16 sm:px-16 sm:py-20 text-center shadow-navy glow-field">
+      <div class="glow-blob glow-blob-blue" style="top:25%; left:20%;"></div>
+      <div class="glow-blob glow-blob-violet" style="top:65%; left:80%;"></div>
+      <div class="grain"></div>
+      <div class="relative">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tightish text-white max-w-2xl mx-auto">Let's build something that works smarter.</h2>
+        <p class="mt-5 text-lg leading-[1.7] text-slate-300 max-w-xl mx-auto">Tell me a bit about your business and where you'd like to see improvement. I'll follow up within 24 hours to schedule a discovery call.</p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="mailto:hello@nickquijanoconsulting.com?subject=Consultation%20Request" class="btn inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-[15px] font-semibold h-11 px-7 rounded-[10px]">
+            Book a Consultation
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="mailto:hello@nickquijanoconsulting.com" class="btn btn-ghost inline-flex items-center justify-center gap-2 bg-transparent border border-white/25 text-white text-[15px] font-semibold h-11 px-7 rounded-[10px] hover:bg-white/5">
+            Email Directly
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ 11. FOOTER ============ -->
+<footer class="bg-navy mt-4 sm:mt-8">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16 py-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 lg:gap-8">
+      <div>
+        <a href="#top" class="flex items-center gap-2.5">
+          <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+            <defs>
+              <linearGradient id="gradFooter" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2563EB"/>
+                <stop offset="1" stop-color="#7C3AED"/>
+              </linearGradient>
+            </defs>
+            <rect width="40" height="40" rx="10" fill="white" fill-opacity="0.06"/>
+            <line x1="12" y1="28" x2="12" y2="14" stroke="url(#gradFooter)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="12" y1="14" x2="28" y2="28" stroke="url(#gradFooter)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="28" y1="28" x2="28" y2="14" stroke="url(#gradFooter)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="14" r="2.6" fill="#F8FAFC"/>
+            <circle cx="12" cy="28" r="2.6" fill="#2563EB"/>
+            <circle cx="28" cy="14" r="2.6" fill="#7C3AED"/>
+            <circle cx="28" cy="28" r="2.6" fill="#F8FAFC"/>
+          </svg>
+          <span class="flex flex-col leading-none">
+            <span class="text-base font-extrabold tracking-tightish text-white">Nick Quijano</span>
+            <span class="text-[11px] font-semibold tracking-[0.18em] text-electric-blue uppercase">Consulting</span>
+          </span>
+        </a>
+        <p class="mt-5 text-sm leading-[1.7] text-slate-400 max-w-xs">Practical AI consulting and modern web design that help businesses work smarter, grow faster, and create better experiences.</p>
+        <a href="#" aria-label="LinkedIn" class="mt-6 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-colors">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05C19.9 8 21 10.3 21 13.75V23h-4v-8.25c0-1.97-.04-4.5-2.75-4.5-2.75 0-3.17 2.15-3.17 4.36V23h-4V8z"/></svg>
+        </a>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold text-white tracking-wide uppercase">Services</h4>
+        <ul class="mt-5 space-y-3 text-sm text-slate-400">
+          <li><a href="#services" class="hover:text-white transition-colors">AI Consulting &amp; Strategy</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors">Website Design &amp; Development</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors">Digital Strategy &amp; Support</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold text-white tracking-wide uppercase">Company</h4>
+        <ul class="mt-5 space-y-3 text-sm text-slate-400">
+          <li><a href="#process" class="hover:text-white transition-colors">Our Process</a></li>
+          <li><a href="#case-studies" class="hover:text-white transition-colors">Case Studies</a></li>
+          <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-bold text-white tracking-wide uppercase">Contact</h4>
+        <ul class="mt-5 space-y-3 text-sm text-slate-400">
+          <li class="flex items-center gap-2"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg><a href="mailto:hello@nickquijanoconsulting.com" class="hover:text-white transition-colors">hello@nickquijanoconsulting.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-slate-500">© 2026 Nick Quijano Consulting. All rights reserved.</p>
+      <p class="text-xs text-slate-500">Built with a business-first approach to AI &amp; web design.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  function closeMenu() {
+    mobileMenu.setAttribute('data-open', 'false');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+  }
+  function openMenu() {
+    mobileMenu.setAttribute('data-open', 'true');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    iconOpen.classList.add('hidden');
+    iconClose.classList.remove('hidden');
+  }
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.getAttribute('data-open') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', closeMenu));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-btn');
+    btn.addEventListener('click', () => {
+      const isOpen = item.getAttribute('data-open') === 'true';
+      document.querySelectorAll('.faq-item').forEach(i => i.setAttribute('data-open', 'false'));
+      item.setAttribute('data-open', isOpen ? 'false' : 'true');
+    });
+  });
+
+  // Cursor-reactive background glow
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('.glow-field').forEach(field => {
+      const blobs = Array.from(field.querySelectorAll('.glow-blob'));
+      const state = blobs.map(() => ({ x: 0, y: 0, tx: 0, ty: 0 }));
+
+      field.addEventListener('mousemove', (e) => {
+        const rect = field.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        blobs.forEach((_, i) => {
+          const depth = i % 2 === 0 ? 70 : -50;
+          state[i].tx = px * depth;
+          state[i].ty = py * depth;
+        });
+      });
+
+      field.addEventListener('mouseleave', () => {
+        state.forEach(s => { s.tx = 0; s.ty = 0; });
+      });
+
+      (function animate() {
+        state.forEach((s, i) => {
+          s.x += (s.tx - s.x) * 0.08;
+          s.y += (s.ty - s.y) * 0.08;
+          blobs[i].style.transform = `translate3d(${s.x}px, ${s.y}px, 0)`;
+        });
+        requestAnimationFrame(animate);
+      })();
+    });
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

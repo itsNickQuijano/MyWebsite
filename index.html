@@ -269,13 +269,13 @@
             <img src="brand_assests/Head%20shot.png" alt="Nick Quijano, Founder of Nick Quijano Consulting" class="w-full aspect-[4/5] object-cover">
           </div>
         </div>
-        <div class="reveal absolute -bottom-6 -left-6 sm:-left-10 bg-white/95 backdrop-blur rounded-2xl shadow-lift px-5 py-4 flex items-center gap-3 max-w-[240px]" style="transition-delay:.3s">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-electric-blue to-digital-violet flex items-center justify-center shrink-0">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        <div class="reveal absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-10 bg-white/95 backdrop-blur rounded-2xl shadow-lift px-3 py-2.5 sm:px-5 sm:py-4 flex items-center gap-2 sm:gap-3 max-w-[200px] sm:max-w-[240px]" style="transition-delay:.3s">
+          <div class="w-7 h-7 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-electric-blue to-digital-violet flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5 sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           </div>
           <div class="leading-tight">
-            <p class="text-sm font-bold text-navy">Nick Quijano</p>
-            <p class="text-xs text-slate-brand">Founder &amp; AI/Web Consultant</p>
+            <p class="text-xs sm:text-sm font-bold text-navy">Nick Quijano</p>
+            <p class="text-[10px] sm:text-xs text-slate-brand">Founder &amp; AI/Web Consultant</p>
           </div>
         </div>
       </div>
@@ -544,7 +544,7 @@
           <video class="live-zoom absolute inset-0 w-full h-full object-cover object-right" autoplay muted loop playsinline poster="brand_assests/videos/nyc-skyline-poster.jpg" aria-label="New York City skyscrapers bordering Central Park">
             <source src="brand_assests/videos/nyc-skyline.mp4" type="video/mp4">
           </video>
-          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 sm:via-white/70 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-white via-white sm:via-white/70 to-transparent"></div>
           <div class="absolute inset-0 bg-electric-blue/5 mix-blend-multiply"></div>
           <div class="relative h-full flex flex-col justify-between p-6 sm:p-8">
             <div class="flex items-center justify-between">
@@ -553,7 +553,7 @@
                 <span>Services</span><span>About</span><span>Contact</span>
               </span>
             </div>
-            <div class="max-w-[80%] sm:max-w-[65%]">
+            <div class="max-w-[85%] sm:max-w-[65%] bg-white/90 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none rounded-2xl p-4 -m-4 sm:p-0 sm:m-0">
               <span class="text-[11px] tracking-[0.2em] uppercase text-electric-blue font-bold">Wealth &amp; Advisory</span>
               <h3 class="mt-2 text-2xl sm:text-3xl font-extrabold leading-[1.1] tracking-tightish text-navy">Clarity for every financial decision.</h3>
               <span class="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold tracking-wide uppercase bg-electric-blue text-white rounded-lg px-5 py-2.5">Schedule a Consultation</span>
@@ -796,6 +796,19 @@
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
   revealEls.forEach(el => io.observe(el));
+
+  // Ensure background videos actually autoplay — some browsers silently
+  // ignore the autoplay attribute until the element is in view or the
+  // user has interacted with the page at least once.
+  const bgVideos = document.querySelectorAll('video[autoplay]');
+  const tryPlay = (video) => { const p = video.play(); if (p) p.catch(() => {}); };
+  const videoIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) tryPlay(entry.target); });
+  }, { threshold: 0.1 });
+  bgVideos.forEach(v => videoIo.observe(v));
+  ['pointerdown', 'touchstart', 'scroll'].forEach(evt => {
+    window.addEventListener(evt, () => bgVideos.forEach(tryPlay), { once: true, passive: true });
+  });
 </script>
 
 </body>

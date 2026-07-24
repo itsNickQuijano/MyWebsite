@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232563EB'/%3E%3Cstop offset='1' stop-color='%237C3AED'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='40' height='40' rx='10' fill='%230B1220'/%3E%3Cline x1='12' y1='28' x2='12' y2='14' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='12' y1='14' x2='28' y2='28' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='28' y1='28' x2='28' y2='14' stroke='url(%23g)' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='14' r='2.6' fill='%23F8FAFC'/%3E%3Ccircle cx='12' cy='28' r='2.6' fill='%232563EB'/%3E%3Ccircle cx='28' cy='14' r='2.6' fill='%237C3AED'/%3E%3Ccircle cx='28' cy='28' r='2.6' fill='%23F8FAFC'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -117,6 +117,14 @@
     .glow-blob { width: 380px; height: 380px; margin-left: -190px; margin-top: -190px; filter: blur(60px); }
   }
 
+  /* Design showcase — video background mockups */
+  .font-display { font-family: 'Playfair Display', ui-serif, serif; }
+  .live-zoom { animation: liveZoom 10s ease-in-out infinite alternate; }
+  @keyframes liveZoom { from { transform: scale(1); } to { transform: scale(1.07); } }
+  @media (prefers-reduced-motion: reduce) {
+    .live-zoom { animation: none; }
+  }
+
 </style>
 </head>
 <body id="top" class="bg-cloud text-charcoal antialiased">
@@ -151,7 +159,7 @@
       <nav class="hidden lg:flex items-center gap-9" aria-label="Primary">
         <a href="#services" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">Services</a>
         <a href="#process" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">Process</a>
-        <a href="#case-studies" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">Case Studies</a>
+        <a href="#designs" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">Design Examples</a>
         <a href="#faq" class="text-[15px] font-medium text-charcoal/80 hover:text-navy transition-colors">FAQ</a>
       </nav>
 
@@ -173,7 +181,7 @@
     <div class="max-w-[1280px] mx-auto px-6 py-6 flex flex-col gap-1">
       <a href="#services" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Services</a>
       <a href="#process" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Process</a>
-      <a href="#case-studies" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Case Studies</a>
+      <a href="#designs" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Design Examples</a>
       <a href="#faq" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">FAQ</a>
       <a href="#contact" class="mobile-link btn mt-4 inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-base font-semibold h-12 px-5 rounded-[10px]">Book a Consultation</a>
     </div>
@@ -477,76 +485,88 @@
   </div>
 </section>
 
-<!-- ============ 7. CASE STUDIES ============ -->
-<section id="case-studies" class="bg-white py-16 border-y border-slate-brand/10">
+<!-- ============ 7. DESIGN EXAMPLES ============ -->
+<section id="designs" class="bg-white py-16 border-y border-slate-brand/10">
   <div class="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
     <div class="reveal max-w-2xl">
-      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Case Studies</span>
-      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-navy">Real challenges, practical solutions</h2>
-      <p class="mt-4 text-lg leading-[1.7] text-slate-brand">Illustrative examples of the kind of work we do — case details are shared with client permission.</p>
+      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Design Examples</span>
+      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-navy">Built to fit the brand, not the other way around</h2>
+      <p class="mt-4 text-lg leading-[1.7] text-slate-brand">Every industry calls for a different look and feel. Here are two concept builds that show the range — from bold and editorial to clean and corporate.</p>
     </div>
 
-    <div class="mt-14 grid md:grid-cols-3 gap-6 lg:gap-8">
-      <div class="reveal card-hover rounded-2xl overflow-hidden bg-cloud border border-slate-brand/10 shadow-soft">
-        <img src="https://placehold.co/600x400/0B1220/F8FAFC?text=E-Commerce+Retailer" alt="E-commerce retailer case study" class="w-full aspect-[3/2] object-cover">
-        <div class="p-7">
-          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Example Project</span>
-          <h3 class="mt-2 text-lg font-bold text-navy tracking-tightish">E-Commerce Retailer</h3>
-          <p class="mt-3 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Challenge:</span> Slow, dated site with a high cart-abandonment rate.</p>
-          <p class="mt-2 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Result:</span> Rebuilt storefront with a streamlined checkout and faster load times.</p>
-        </div>
-      </div>
-      <div class="reveal card-hover rounded-2xl overflow-hidden bg-cloud border border-slate-brand/10 shadow-soft" style="transition-delay:.08s">
-        <img src="https://placehold.co/600x400/1E293B/F8FAFC?text=Professional+Services+Firm" alt="Professional services firm case study" class="w-full aspect-[3/2] object-cover">
-        <div class="p-7">
-          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Example Project</span>
-          <h3 class="mt-2 text-lg font-bold text-navy tracking-tightish">Professional Services Firm</h3>
-          <p class="mt-3 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Challenge:</span> Staff spending hours weekly on manual client intake.</p>
-          <p class="mt-2 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Result:</span> Automated intake workflow, cutting admin time significantly.</p>
-        </div>
-      </div>
-      <div class="reveal card-hover rounded-2xl overflow-hidden bg-cloud border border-slate-brand/10 shadow-soft" style="transition-delay:.16s">
-        <img src="https://placehold.co/600x400/2563EB/F8FAFC?text=Local+Healthcare+Practice" alt="Local healthcare practice case study" class="w-full aspect-[3/2] object-cover">
-        <div class="p-7">
-          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Example Project</span>
-          <h3 class="mt-2 text-lg font-bold text-navy tracking-tightish">Local Healthcare Practice</h3>
-          <p class="mt-3 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Challenge:</span> No clear digital strategy or way to track patient inquiries.</p>
-          <p class="mt-2 text-sm leading-[1.7] text-slate-brand"><span class="font-semibold text-charcoal">Result:</span> New site plus a simple inquiry dashboard for the front desk.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="mt-14 grid lg:grid-cols-2 gap-8 lg:gap-10">
 
-<!-- ============ 8. TESTIMONIALS ============ -->
-<section class="relative overflow-hidden bg-navy py-16 glow-field">
-  <div class="glow-blob glow-blob-violet" style="top:20%; left:22%;"></div>
-  <div class="grain"></div>
-  <div class="relative max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-16">
-    <div class="reveal max-w-2xl mx-auto text-center">
-      <span class="text-[13px] font-bold tracking-[0.14em] text-electric-blue uppercase">Testimonials</span>
-      <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tightish text-white">What clients say</h2>
-    </div>
+      <!-- Fashion concept -->
+      <div class="reveal card-hover rounded-2xl overflow-hidden bg-navy border border-slate-brand/10 shadow-lift">
+        <div class="flex items-center gap-2 px-4 py-3 bg-charcoal/95 border-b border-white/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
+          <span class="ml-3 text-[11px] tracking-wide text-slate-400 bg-white/5 rounded-full px-3 py-1">noir&amp;fold.com</span>
+        </div>
+        <div class="relative aspect-[4/3] overflow-hidden bg-black">
+          <video class="live-zoom absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline poster="https://assets.mixkit.co/videos/52270/52270-thumb-720-0.jpg" aria-label="Fashion model walking a runway">
+            <source src="https://assets.mixkit.co/videos/52270/52270-720.mp4" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/40"></div>
+          <div class="absolute inset-0 bg-digital-violet/10 mix-blend-multiply"></div>
+          <div class="grain"></div>
+          <div class="relative h-full flex flex-col justify-between p-6 sm:p-8">
+            <div class="flex items-center justify-between">
+              <span class="font-display italic text-lg text-white tracking-tight">Noir&amp;Fold</span>
+              <span class="hidden sm:flex gap-5 text-[10px] tracking-[0.25em] uppercase text-white/70">
+                <span>Collections</span><span>Lookbook</span><span>Contact</span>
+              </span>
+            </div>
+            <div>
+              <span class="text-[11px] tracking-[0.3em] uppercase text-white/60">Fall / Winter Edit</span>
+              <h3 class="font-display italic mt-2 text-3xl sm:text-4xl leading-[1.05] text-white max-w-xs">Wear what moves you.</h3>
+              <span class="mt-5 inline-flex items-center gap-2 text-[11px] tracking-[0.15em] uppercase text-white border border-white/40 rounded-full px-5 py-2.5 backdrop-blur-sm">Shop the Edit</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 sm:p-7">
+          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Fashion &amp; Retail</span>
+          <h4 class="mt-3 text-lg font-bold text-white tracking-tightish">High-contrast, editorial &amp; bold</h4>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-400">Full-bleed imagery, a serif display typeface, and a dark palette built to make a fashion or lifestyle brand feel premium from the first scroll.</p>
+        </div>
+      </div>
 
-    <div class="mt-14 grid md:grid-cols-3 gap-6 lg:gap-8">
-      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-8">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED" opacity="0.6"><path d="M7 10c-1.7 0-3 1.3-3 3v5h5v-5H6.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1zm10 0c-1.7 0-3 1.3-3 3v5h5v-5h-1.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1z"/></svg>
-        <p class="mt-4 text-[15px] leading-[1.7] text-slate-300">"Working with Nick made AI feel practical instead of overwhelming. We finally had a plan we could actually execute."</p>
-        <p class="mt-5 text-sm font-semibold text-white">Client Name</p>
-        <p class="text-xs text-slate-400">Title, Industry</p>
+      <!-- Professional business concept -->
+      <div class="reveal card-hover rounded-2xl overflow-hidden bg-white border border-slate-brand/10 shadow-lift" style="transition-delay:.08s">
+        <div class="flex items-center gap-2 px-4 py-3 bg-cloud border-b border-slate-brand/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-brand/20"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-brand/20"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-brand/20"></span>
+          <span class="ml-3 text-[11px] tracking-wide text-slate-brand bg-white rounded-full px-3 py-1 border border-slate-brand/10">meridiancapital.com</span>
+        </div>
+        <div class="relative aspect-[4/3] overflow-hidden bg-cloud">
+          <video class="live-zoom absolute inset-0 w-full h-full object-cover object-right" autoplay muted loop playsinline poster="https://assets.mixkit.co/videos/30544/30544-thumb-720-0.jpg" aria-label="New York City skyscrapers bordering Central Park">
+            <source src="https://assets.mixkit.co/videos/30544/30544-720.mp4" type="video/mp4">
+          </video>
+          <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 sm:via-white/70 to-transparent"></div>
+          <div class="absolute inset-0 bg-electric-blue/5 mix-blend-multiply"></div>
+          <div class="relative h-full flex flex-col justify-between p-6 sm:p-8">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-extrabold tracking-tightish text-navy">Meridian Capital</span>
+              <span class="hidden sm:flex gap-5 text-[11px] tracking-wide text-slate-brand">
+                <span>Services</span><span>About</span><span>Contact</span>
+              </span>
+            </div>
+            <div class="max-w-[80%] sm:max-w-[65%]">
+              <span class="text-[11px] tracking-[0.2em] uppercase text-electric-blue font-bold">Wealth &amp; Advisory</span>
+              <h3 class="mt-2 text-2xl sm:text-3xl font-extrabold leading-[1.1] tracking-tightish text-navy">Clarity for every financial decision.</h3>
+              <span class="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold tracking-wide uppercase bg-electric-blue text-white rounded-lg px-5 py-2.5">Schedule a Consultation</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 sm:p-7">
+          <span class="text-xs font-bold tracking-wide text-digital-violet uppercase">Professional Services</span>
+          <h4 class="mt-3 text-lg font-bold text-navy tracking-tightish">Clean, structured &amp; trustworthy</h4>
+          <p class="mt-2 text-sm leading-[1.7] text-slate-brand">A calm palette, clear hierarchy, and confident calls to action — built for firms where credibility and trust come first.</p>
+        </div>
       </div>
-      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-8" style="transition-delay:.08s">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED" opacity="0.6"><path d="M7 10c-1.7 0-3 1.3-3 3v5h5v-5H6.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1zm10 0c-1.7 0-3 1.3-3 3v5h5v-5h-1.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1z"/></svg>
-        <p class="mt-4 text-[15px] leading-[1.7] text-slate-300">"Our new site is faster, cleaner, and actually reflects the quality of our work. The process was clear from day one."</p>
-        <p class="mt-5 text-sm font-semibold text-white">Client Name</p>
-        <p class="text-xs text-slate-400">Title, Industry</p>
-      </div>
-      <div class="reveal rounded-2xl bg-white/[0.04] border border-white/10 p-8" style="transition-delay:.16s">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED" opacity="0.6"><path d="M7 10c-1.7 0-3 1.3-3 3v5h5v-5H6.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1zm10 0c-1.7 0-3 1.3-3 3v5h5v-5h-1.5c0-1.1.9-2 2-2V9c-.5 0-1 .5-1.5 1z"/></svg>
-        <p class="mt-4 text-[15px] leading-[1.7] text-slate-300">"We stopped losing time to manual busywork. The automation Nick built paid for itself within a couple of months."</p>
-        <p class="mt-5 text-sm font-semibold text-white">Client Name</p>
-        <p class="text-xs text-slate-400">Title, Industry</p>
-      </div>
+
     </div>
   </div>
 </section>
@@ -675,7 +695,7 @@
         <h4 class="text-sm font-bold text-white tracking-wide uppercase">Company</h4>
         <ul class="mt-5 space-y-3 text-sm text-slate-400">
           <li><a href="#process" class="hover:text-white transition-colors">Our Process</a></li>
-          <li><a href="#case-studies" class="hover:text-white transition-colors">Case Studies</a></li>
+          <li><a href="#designs" class="hover:text-white transition-colors">Design Examples</a></li>
           <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
         </ul>
       </div>

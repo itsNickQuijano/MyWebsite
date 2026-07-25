@@ -96,6 +96,14 @@
   #mobile-menu[data-open="false"] { opacity: 0; transform: translateY(-8px); pointer-events: none; }
   #mobile-menu[data-open="true"] { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
+  /* Booking modal */
+  .booking-modal { transition: opacity .25s ease; }
+  .booking-modal[data-open="false"] { opacity: 0; pointer-events: none; }
+  .booking-modal[data-open="true"] { opacity: 1; pointer-events: auto; }
+  .booking-modal-panel { transition: transform .3s cubic-bezier(.16,1,.3,1), opacity .3s ease; }
+  .booking-modal[data-open="false"] .booking-modal-panel { transform: translateY(12px) scale(.98); opacity: 0; }
+  .booking-modal[data-open="true"] .booking-modal-panel { transform: translateY(0) scale(1); opacity: 1; }
+
   .node-glow { filter: drop-shadow(0 0 12px rgba(124,58,237,0.35)); }
 
   /* Cursor-reactive background glow */
@@ -164,10 +172,10 @@
       </nav>
 
       <div class="hidden lg:block">
-        <a href="#contact" class="btn inline-flex items-center gap-2 bg-electric-blue text-white text-[15px] font-semibold h-11 px-5 rounded-[10px] hover:brightness-110">
+        <button type="button" class="js-book-consultation btn inline-flex items-center gap-2 bg-electric-blue text-white text-[15px] font-semibold h-11 px-5 rounded-[10px] hover:brightness-110">
           Book a Consultation
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        </button>
       </div>
 
       <button id="menu-btn" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-navy hover:bg-navy/5 transition-colors" aria-label="Toggle menu" aria-expanded="false">
@@ -183,7 +191,7 @@
       <a href="#process" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Process</a>
       <a href="#designs" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">Design Examples</a>
       <a href="#faq" class="mobile-link py-3 text-base font-medium text-charcoal border-b border-slate-brand/10">FAQ</a>
-      <a href="#contact" class="mobile-link btn mt-4 inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-base font-semibold h-12 px-5 rounded-[10px]">Book a Consultation</a>
+      <button type="button" class="js-book-consultation mobile-link btn mt-4 inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-base font-semibold h-12 px-5 rounded-[10px]">Book a Consultation</button>
     </div>
   </div>
 </header>
@@ -247,10 +255,10 @@
         </p>
 
         <div class="reveal mt-8 flex flex-col sm:flex-row gap-4" style="transition-delay:.15s">
-          <a href="#contact" class="btn inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-[13px] font-semibold uppercase tracking-[0.08em] h-12 px-7 rounded-[10px]">
+          <button type="button" class="js-book-consultation btn inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-[13px] font-semibold uppercase tracking-[0.08em] h-12 px-7 rounded-[10px]">
             Book a Consultation
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+          </button>
           <a href="#services" class="btn btn-ghost inline-flex items-center justify-center gap-2 bg-transparent border border-white/25 text-white text-[13px] font-semibold uppercase tracking-[0.08em] h-12 px-7 rounded-[10px] hover:bg-white/5">
             Explore Our Services
           </a>
@@ -634,10 +642,10 @@
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tightish text-white max-w-2xl mx-auto">Let's build something that works smarter.</h2>
         <p class="mt-5 text-lg leading-[1.7] text-slate-300 max-w-xl mx-auto">Tell me a bit about your business and where you'd like to see improvement. I'll follow up within 24 hours to schedule a discovery call.</p>
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="mailto:hello@nickquijanoconsulting.com?subject=Consultation%20Request" class="btn inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-[15px] font-semibold h-11 px-7 rounded-[10px]">
+          <button type="button" class="js-book-consultation btn inline-flex items-center justify-center gap-2 bg-electric-blue text-white text-[15px] font-semibold h-11 px-7 rounded-[10px]">
             Book a Consultation
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+          </button>
           <a href="mailto:hello@nickquijanoconsulting.com" class="btn btn-ghost inline-flex items-center justify-center gap-2 bg-transparent border border-white/25 text-white text-[15px] font-semibold h-11 px-7 rounded-[10px] hover:bg-white/5">
             Email Directly
           </a>
@@ -716,6 +724,22 @@
     </div>
   </div>
 </footer>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div id="booking-modal" data-open="false" class="booking-modal fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true" aria-label="Book a consultation">
+  <div class="booking-modal-backdrop absolute inset-0 bg-navy/70 backdrop-blur-sm"></div>
+  <div class="booking-modal-panel relative w-full max-w-2xl max-h-[90vh] bg-white rounded-[20px] shadow-lift overflow-hidden flex flex-col">
+    <div class="flex items-center justify-between gap-4 px-6 py-4 border-b border-slate-brand/10 shrink-0">
+      <h2 class="text-base font-bold text-navy">Book a Consultation</h2>
+      <button type="button" class="booking-modal-close inline-flex items-center justify-center w-9 h-9 rounded-lg text-charcoal/60 hover:text-navy hover:bg-navy/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-blue/50 active:bg-navy/10" aria-label="Close booking dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="relative flex-1 min-h-[500px] bg-cloud">
+      <iframe id="booking-iframe" data-src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1g7nEWKprccE48GXR5XRsnlpWBeq9SoPfrePwG3Y_JDoFEmRSQFMgBYeeDyRz6ShE9qhU4jD7n?gv=true" style="border: 0" class="absolute inset-0 w-full h-full" frameborder="0" title="Book a consultation via Google Calendar"></iframe>
+    </div>
+  </div>
+</div>
 
 <script>
   // Mobile menu toggle
@@ -808,6 +832,34 @@
   bgVideos.forEach(v => videoIo.observe(v));
   ['pointerdown', 'touchstart', 'scroll'].forEach(evt => {
     window.addEventListener(evt, () => bgVideos.forEach(tryPlay), { once: true, passive: true });
+  });
+
+  // Booking modal (Google Calendar Appointment Schedule)
+  const bookingModal = document.getElementById('booking-modal');
+  const bookingIframe = document.getElementById('booking-iframe');
+  const bookingIframeSrc = bookingIframe.dataset.src;
+  let lastFocusedEl = null;
+
+  function openBookingModal() {
+    lastFocusedEl = document.activeElement;
+    if (!bookingIframe.src) bookingIframe.src = bookingIframeSrc;
+    bookingModal.setAttribute('data-open', 'true');
+    document.body.style.overflow = 'hidden';
+    bookingModal.querySelector('.booking-modal-close').focus();
+  }
+  function closeBookingModal() {
+    bookingModal.setAttribute('data-open', 'false');
+    document.body.style.overflow = '';
+    if (lastFocusedEl) lastFocusedEl.focus();
+  }
+
+  document.querySelectorAll('.js-book-consultation').forEach(btn => {
+    btn.addEventListener('click', openBookingModal);
+  });
+  bookingModal.querySelector('.booking-modal-close').addEventListener('click', closeBookingModal);
+  bookingModal.querySelector('.booking-modal-backdrop').addEventListener('click', closeBookingModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && bookingModal.getAttribute('data-open') === 'true') closeBookingModal();
   });
 </script>
 

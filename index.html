@@ -106,6 +106,35 @@
 
   .node-glow { filter: drop-shadow(0 0 12px rgba(124,58,237,0.35)); }
 
+  /* Hero: shooting-star strobe traveling along each network line.
+     Each spark line uses pathLength="100" so one keyframe fits every line
+     regardless of its true length. A short bright dash (6 units) with a
+     large gap (100) leaves exactly one streak per line at a time. */
+  .hero-spark {
+    fill: none;
+    stroke: #C084FC;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-dasharray: 6 100;
+    stroke-dashoffset: 106;
+    opacity: 0;
+    filter: drop-shadow(0 0 5px rgba(168,85,247,0.95)) drop-shadow(0 0 14px rgba(124,58,237,0.6));
+    animation: heroSpark 8s cubic-bezier(.45,0,.55,1) infinite;
+    will-change: stroke-dashoffset, opacity;
+  }
+  /* Streak occupies only the first ~22% of the cycle, then a long dark
+     pause — so shooting stars appear rarely and one at a time. */
+  @keyframes heroSpark {
+    0%   { stroke-dashoffset: 106; opacity: 0; }
+    3%   { opacity: 1; }
+    19%  { opacity: 1; }
+    22%  { stroke-dashoffset: 6;   opacity: 0; }
+    100% { stroke-dashoffset: 6;   opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-spark { animation: none; opacity: 0; }
+  }
+
   /* Cursor-reactive background glow */
   .glow-field { position: relative; }
   .glow-blob {
@@ -203,14 +232,14 @@
   <div class="glow-blob glow-blob-blue" style="top:22%; left:18%;"></div>
   <div class="glow-blob glow-blob-violet" style="top:32%; left:82%;"></div>
 
-  <svg class="absolute inset-0 w-full h-full opacity-40" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1280 760" fill="none" aria-hidden="true">
+  <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1280 760" fill="none" aria-hidden="true">
     <defs>
       <linearGradient id="heroNetGrad" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stop-color="#2563EB" stop-opacity="0.55"/>
         <stop offset="1" stop-color="#7C3AED" stop-opacity="0.55"/>
       </linearGradient>
     </defs>
-    <g stroke="url(#heroNetGrad)" stroke-width="1">
+    <g stroke="url(#heroNetGrad)" stroke-width="1" opacity="0.4">
       <line x1="90" y1="130" x2="250" y2="230"/>
       <line x1="250" y1="230" x2="190" y2="400"/>
       <line x1="250" y1="230" x2="430" y2="170"/>
@@ -224,7 +253,14 @@
       <line x1="190" y1="640" x2="330" y2="600"/>
       <line x1="570" y1="290" x2="700" y2="200"/>
     </g>
-    <g fill="#F8FAFC" fill-opacity="0.55">
+    <g>
+      <line class="hero-spark" pathLength="100" x1="90" y1="130" x2="250" y2="230" style="animation-delay:0s; animation-duration:8s"/>
+      <line class="hero-spark" pathLength="100" x1="250" y1="230" x2="190" y2="400" style="animation-delay:5.5s; animation-duration:9s"/>
+      <line class="hero-spark" pathLength="100" x1="1040" y1="100" x2="1160" y2="210" style="animation-delay:3s; animation-duration:8.5s"/>
+      <line class="hero-spark" pathLength="100" x1="1040" y1="580" x2="1160" y2="520" style="animation-delay:7.5s; animation-duration:9.5s"/>
+      <line class="hero-spark" pathLength="100" x1="570" y1="290" x2="700" y2="200" style="animation-delay:2s; animation-duration:8s"/>
+    </g>
+    <g fill="#F8FAFC" fill-opacity="0.55" opacity="0.4">
       <circle cx="90" cy="130" r="2.5"/><circle cx="250" cy="230" r="3"/><circle cx="190" cy="400" r="2"/>
       <circle cx="430" cy="170" r="2.5"/><circle cx="570" cy="290" r="2"/><circle cx="700" cy="200" r="2"/>
       <circle cx="1040" cy="100" r="2.5"/><circle cx="1160" cy="210" r="3"/><circle cx="1080" cy="350" r="2"/>
